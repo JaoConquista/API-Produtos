@@ -64,10 +64,6 @@ class PostGres extends ICrud {
         dialect: "postgres", //drive type
         //case sentive
         quoteIdentifiers: false,
-        //deprecation warining
-        // dialectOptions: {
-        //     ssl: false,
-        // }
       }
     )
     await this._defineModel();
@@ -77,6 +73,10 @@ class PostGres extends ICrud {
    const {dataValues} = await this._produtos.create(item);
 
    return dataValues;
+  }
+
+  async read (item){
+    return this._produtos.findAll({where: item, raw: true});
   }
 }
 

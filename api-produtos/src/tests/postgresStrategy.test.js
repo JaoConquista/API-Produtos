@@ -28,4 +28,10 @@ describe('Postgres Strategy', function () {
         delete result.id_produto;
         assert.deepEqual(result, MOCK_PRODUTO_CADASTRAR)//the result should be equal to the mock
     })
+
+    it(' Read Products', async function () {
+        const [result] = await context.read(MOCK_PRODUTO_CADASTRAR)
+        delete result.id_produto;
+        assert.deepEqual(result, MOCK_PRODUTO_CADASTRAR)
+    })
 })
