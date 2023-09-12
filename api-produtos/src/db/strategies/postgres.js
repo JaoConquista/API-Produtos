@@ -78,6 +78,17 @@ class PostGres extends ICrud {
   async read (item){
     return this._produtos.findAll({where: item, raw: true});
   }
+
+  async update(id, item){
+    const r = this._produtos.update(item, {where: {id}})
+    return r;
+  }
+
+  async delete(id){
+    const query = id ? {id_produto: id} : {};
+    return this._produtos.destroy({where: query});
+  }
+  
 }
 
 module.exports = PostGres;
