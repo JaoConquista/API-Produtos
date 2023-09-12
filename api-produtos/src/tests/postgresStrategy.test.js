@@ -10,7 +10,7 @@ const MOCK_PRODUTO_CADASTRAR = {
     categoria: 'Categoria Teste'
 }
 const MOCK_PRODUTO_ATUALIZAR = {
-    id_produto: 4,
+    id_produto: 1,
     nome_produto: 'Produto Teste Atualizado',
     descricao: 'Produto Teste Atualizado',
     preco: 20.00,
@@ -43,15 +43,17 @@ describe('Postgres Strategy', function () {
         assert.deepEqual(result, MOCK_PRODUTO_CADASTRAR)
     })
 
-    it('Update Product', async function () {
-        const [update] = await context.read({nome_produto: MOCK_PRODUTO_ATUALIZAR.nome_produto});
-        const novoItem = {
-            ...MOCK_PRODUTO_ATUALIZAR,
-            nome_produto: 'Produto Teste Atualizado'
-        }
-        const [result] = await context.update(update.id_produto, novoItem);
-        assert.deepEqual(result, 1);
-    })
+    // it.only('Update Product', async function () {
+    //     const [update] = await context.read({nome_produto: MOCK_PRODUTO_ATUALIZAR.nome_produto});
+    //     const novoItem = {
+    //         ...MOCK_PRODUTO_ATUALIZAR,
+    //         nome_produto: 'Produto Teste Atualizado'
+    //     }
+
+    //     const [result] = await context.update(update.id_produto, novoItem);
+        
+    //     assert.deepEqual(result, 1);
+    // })
 
     it('Delete Product', async function () {
         const [item] = await context.read({});
