@@ -64,6 +64,7 @@ class PostGres extends ICrud {
         dialect: "postgres", //drive type
         //case sentive
         quoteIdentifiers: false,
+        logging: false
       }
     )
     await this._defineModel();
