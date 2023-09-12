@@ -6,8 +6,8 @@ class PostGres extends ICrud {
     super();
     this._driver = null;
     this._produtos = null;
-    this._connect();
   }
+  
   async isConnected(){
     try {
         this._driver.authenticate()
@@ -18,7 +18,7 @@ class PostGres extends ICrud {
   }
 
   async _defineModel() {
-    this._produtos = drive.define("produtos", {
+    this._produtos = this._driver.define("produtos", {
         id_produto: {
           type: Sequelize.INTEGER,
           required: true,
@@ -51,10 +51,10 @@ class PostGres extends ICrud {
         timestamps: false//não criar colunas de controle de data
       });
     
-      await Produtos.sync();
+      await this._produtos.sync();
   }
 
-  _connect() {
+  async connect() {
     this._driver = new Sequelize(
       "produtos", //database
       "JoaoConquistaDev", //user
@@ -65,16 +65,18 @@ class PostGres extends ICrud {
         //case sentive
         quoteIdentifiers: false,
         //deprecation warining
-        operatorsAliases: false,
         // dialectOptions: {
         //     ssl: false,
         // }
       }
-    );
+    )
+    await this._defineModel();
   }
 
-  create(item) {
-    console.log("O produto foi salvo em PostGres");
+  async  create(item) {
+   const {dataValues} = await this._produtos.create(item);
+
+   return dataValues;
   }
 }
 
