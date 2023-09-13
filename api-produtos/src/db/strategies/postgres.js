@@ -64,6 +64,7 @@ class PostGres extends ICrud {
         dialect: "postgres", //drive type
         //case sentive
         quoteIdentifiers: false,
+        logging: false
       }
     )
     await this._defineModel();
@@ -79,10 +80,10 @@ class PostGres extends ICrud {
     return this._produtos.findAll({where: item, raw: true});
   }
 
-  // async update(id, item){
-  //   const r = this._produtos.update(item, {where: { id_produto : id}})
-  //   return r;
-  // }
+  async update(id, item){
+    const r = await this._produtos.update(item, {where: {id_produto : id}})
+    return r;
+  }
 
   async delete(id){
     const query = id ? {id_produto: id} : {};
