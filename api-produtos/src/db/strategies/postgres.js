@@ -81,9 +81,7 @@ class PostGres extends ICrud {
   }
 
   async update(id, item){
-    console.log('id: ', id) 
     const r = await this._produtos.update(item, {where: {id_produto : id}})
-    console.log('r: ', r)
     return r;
   }
 

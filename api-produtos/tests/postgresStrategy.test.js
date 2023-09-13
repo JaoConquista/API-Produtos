@@ -43,9 +43,6 @@ describe("Postgres Strategy", function () {
       ...MOCK_PRODUTO_CADASTRAR,
       nome_produto: "Teste Atualizado",
     };
-
-    console.log("update: ", update);
-
     const [result] = await context.update(update.id_produto, novoItem);
 
     assert.deepEqual(result, 1);
