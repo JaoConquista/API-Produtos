@@ -9,7 +9,7 @@ const MOCK_PRODUTO_CADASTRAR = {
   categoria: "Categoria POST",
 }
 
-describe("Suíte de testes da API de Produtos", function () {
+describe.only("Suíte de testes da API de Produtos", function () {
   before(async () => {
     app = await api;
   });
@@ -21,6 +21,7 @@ describe("Suíte de testes da API de Produtos", function () {
     });
 
     const statusCode = result.statusCode;
+    console.log("status", statusCode)
     const dados = JSON.parse(result.payload);
 
     assert.deepEqual(statusCode, 200);
@@ -42,6 +43,7 @@ describe("Suíte de testes da API de Produtos", function () {
   // })
 
   it("Cadastrar /produtos", async () => {
+
     const result = await app.inject({
       method: "POST",
       url: "/produtos",

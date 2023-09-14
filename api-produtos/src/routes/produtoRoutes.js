@@ -15,22 +15,7 @@ class ProdutoRoutes extends BaseRoute {
       method: "GET",
       handler: (request, headers) => {
         try {
-          const { skip, limit, nome } = request.query;
-
-          let query = {};
-
-          if (nome) {
-            query.nome = nome;
-          }
-
-          if (isNaN(skip)) {
-            throw Error("O tipo do skip é incorreto");
-          }
-          if (isNaN(limit)) {
-            throw Error("O tipo do limite é incorreto");
-          }
-
-          return this.db.read({ nome: nome }, parseInt(skip), parseInt(limit));
+          return this.db.read();
         } catch (error) {
           console.log("DEU RUIM", error);
           return "Erro interno no servidor";
@@ -47,14 +32,14 @@ class ProdutoRoutes extends BaseRoute {
         validate: {
           failAction,
           payload: {
-            nome_produto: Joi.string().max(100).required(),
+            nome_produto: Joi.string().min(2).max(100).required(),
             preco: Joi.number().required(),
-            descricao: Joi.string().max(100).required(),
+            descricao: Joi.string().min(2).max(100).required(),
             quantidade: Joi.number().required(),
-            categoria: Joi.string().max(100).required(),
+            categoria: Joi.string().min(2).max(100).required(),
           },
           },
-            },
+        },
         handler: async (request) => {
             try {
                 const {
@@ -71,6 +56,8 @@ class ProdutoRoutes extends BaseRoute {
                     quantidade,
                     categoria,
                 })
+
+                console.log('result', result)
 
                 return {
                     message: 'Produto cadastrado com sucesso',

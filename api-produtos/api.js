@@ -13,9 +13,10 @@ function mapRoutes(instance, methods){
 
 async function main() {
     const context = new Context(new PostGres());
+    const produtoRoute = new ProdutoRoutes(context);
     await context.connect();
 
-    app.route({
+    app.route([{
         path: '/produtos',
         method: 'GET',
         handler: (request, headers) => {
@@ -25,10 +26,32 @@ async function main() {
     {
         path: '/produtos',
         method: 'POST',
-        handler: (request, headers) => {
-            return context.read();
+        handler: async (request) => {
+            try {
+                const {
+                    nome_produto,
+                    preco,
+                    descricao,
+                    quantidade,
+                    categoria
+                } = request.payload
+                const result = await context.create({
+                    nome_produto,
+                    preco,
+                    descricao,
+                    quantidade,
+                    categoria})
+                return {
+                    message: 'Produto cadastrado com sucesso',
+                    _id: result._id
+                }
+            } catch (error) {
+                console.log('DEU RUIM', error)
+                return 'Erro interno no servidor'
+            }
         }
-    })
+          
+    }])
 
     app.start();
     console.log('Servidor rodando na porta', app.info.port);
