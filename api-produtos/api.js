@@ -52,10 +52,25 @@ async function main() {
           const initialTime = Date.now();
           let createdElements = 0;
 
-          const result = await context.bulkCreate(
-            generateRandomProduct(1000000)
-          );
-          createdElements += result.length;
+          const promises = [];
+
+          for (let i = 0; i < 1000; i++) {
+            console.log("criando promise ", i);
+            const promise = new Promise(async (resolve) => {
+              console.log("resolvendo promise ", i);
+              const result = await context.bulkCreate(
+                generateRandomProduct(2000)
+              );
+
+              createdElements += result.length;
+              console.log("createdElements", createdElements);
+              resolve();
+            });
+            promises.push(promise);
+          }
+
+          await Promise.all(promises);
+
           const spentTime = Date.now() - initialTime;
 
           return {
