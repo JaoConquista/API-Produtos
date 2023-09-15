@@ -22,6 +22,9 @@ class IDb {
   isConnected() {
     throw new NotImplementedException();
   }
+  bulkCreate() {
+    throw new NotImplementedException();
+  }
 }
 
 module.exports = IDb;
