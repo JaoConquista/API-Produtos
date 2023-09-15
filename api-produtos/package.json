@@ -1,7 +1,7 @@
 {
   "name": "api-produtos",
   "version": "1.0.0",
-  "description": "",
+  "description": "docker run \\\r     --name postgres \\\r     -e POSTGRES_USER=JoaoConquistaDev \\\r     -e POSTGRES_PASSWORD=123456 \\\r     -e POSTGRES_DB=heroes \\\r     -p 5432:5432 \\\r     -d \\\r     postgres",
   "main": "index.js",
   "scripts": {
     "test": "mocha tests/*.js -w"

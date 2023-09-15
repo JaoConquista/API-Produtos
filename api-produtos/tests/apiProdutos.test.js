@@ -1,13 +1,14 @@
 const assert = require("assert");
 const api = require("../api");
 let app = {};
+
 const MOCK_PRODUTO_CADASTRAR = {
   nome_produto: "Produto POST",
   preco: 100,
   descricao: "Produto POST",
   quantidade: 10,
   categoria: "Categoria POST",
-}
+};
 
 describe.only("Suíte de testes da API de Produtos", function () {
   before(async () => {
@@ -21,7 +22,7 @@ describe.only("Suíte de testes da API de Produtos", function () {
     });
 
     const statusCode = result.statusCode;
-    console.log("status", statusCode)
+    console.log("status", statusCode);
     const dados = JSON.parse(result.payload);
 
     assert.deepEqual(statusCode, 200);
@@ -43,18 +44,33 @@ describe.only("Suíte de testes da API de Produtos", function () {
   // })
 
   it("Cadastrar /produtos", async () => {
-
-    const result = await app.inject({
-      method: "POST",
-      url: "/produtos",
-      payload: JSON.stringify(MOCK_PRODUTO_CADASTRAR),
-    });
+      const result = await app.inject({
+        method: "POST",
+        url: "/produtos",
+        payload: JSON.stringify(MOCK_PRODUTO_CADASTRAR),
+      });
 
     const statusCode = result.statusCode;
-    console.log("result.payload", result.payload)
+    console.log("result", result.payload);
     const { message } = JSON.parse(result.payload);
     assert.ok(statusCode === 200);
     assert.deepEqual(message, "Produto cadastrado com sucesso");
   });
- 
+
+  // it.only("Deve cadastrar 10 milhões de produtos", async () => {
+
+  //   for (let i = 0; i <= 9999999; i++) {
+  //     const result = await app.inject({
+  //       method: "POST",
+  //       url: "/produtos",
+  //       payload: JSON.stringify(MOCK_PRODUTO_CADASTRAR),
+  //     });
+  //   }
+
+  //   const statusCode = result.statusCode;
+  //   console.log("result.payload", result.payload);
+  //   const { message } = JSON.parse(result.payload);
+  //   assert.ok(statusCode === 200);
+  //   assert.deepEqual(message, "Produto cadastrado com sucesso");
+  // });
 });
