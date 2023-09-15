@@ -1,6 +1,7 @@
 const ICrud = require("./interface/interfaceCrud");
 const Sequelize = require("sequelize");
 
+// bulkCreate
 class PostGres extends ICrud {
   constructor() {
     super();
