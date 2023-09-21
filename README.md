@@ -1,16 +1,4 @@
-# API-Produtos
- Api para cadastro e busca de produtos.
- 
-# Depedencias
-- Node
-- Swagger
-- HapiJs
-
-# Setup
-
-Assumindo que o docker esta instalado e rodando, execute o comando abaixo:
-
-```
-docker run --name postgres -e POSTGRES_USER=dev -e POSTGRES_PASSWORD=dev -e POSTGRES_DB=produtos  -p 5432:5432 -d postgres
-```
-
+<h2>🚀 Api produtos em typeScript, fastify e prisma</h2>.</br>
+Instale as dependências com <code>npm install</code>. </br>
+Para popular o seu banco com 1 milhão de registros em menos de 30 segundos descomente a linha 21 do arquivo server.ts .</br>
+Para rodar o servidor execute <code>npm run dev</code> na raíz do projeto</br>
