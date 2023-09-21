@@ -56,7 +56,7 @@ export async function populateDB(db: Postgres) {
     await db.bulkCreate(promises)
 
     const spentTime = Date.now() - initialTime;
-    console.log("finalizado em : ",spentTime, " Tamanho : ", promises.length)
+    console.log("finalizado em : ",spentTime)
   } catch (error) {
     console.error("erro: ", error)
     throw error

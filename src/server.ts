@@ -2,6 +2,7 @@ import { fastify } from 'fastify'
 import { getProducts } from './routes/getProducts'
 import { postProduct } from './routes/postProduct';
 import { Postgres } from './db/postgres';
+import { populateDB } from './routes/populateDB';
 
 const app = fastify();
 const postgres = new Postgres();
