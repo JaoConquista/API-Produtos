@@ -1,11 +1,12 @@
 import { FastifyInstance } from "fastify";
 import { Postgres } from "../db/postgres";
+import { IProduct } from "../dtos/ProductDTO";
 
 export async function postProduct(app: FastifyInstance, db: Postgres) {
 
     app.post("/produtos", async (req, reply) => {
         try {
-            const data = req.body;
+            const data = req.body as IProduct;
             console.log('Post is alive')
 
             const create = await db.create(data);

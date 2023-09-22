@@ -1,9 +1,10 @@
 import { Postgres } from "../db/postgres";
 import { faker } from "@faker-js/faker"
 import { FastifyInstance } from "fastify";
+import { IProduct } from "../dtos/ProductDTO";
 
 function generateRandomProduct(quantity: number) {
-  const products = [];
+  const products: IProduct[] = [];
   for (let i = 0; i < quantity; i++) {
     const productName = faker.commerce.productName();
     const productPrice = faker.number.float({
@@ -33,11 +34,11 @@ export async function populateDB(db: Postgres) {
     const initialTime = Date.now();
     let createdElements = 0;
 
-    const promises = [];
+    const promises: IProduct[] = [];
 
     for (let i = 0; i < 500; i++) {
       console.log("criando promise ", i);
-      const promise = new Promise<void>(async (resolve) => {
+      const promise = new Promise<IProduct>(async (resolve) => {
         console.log("resolvendo promise ", i);
         const result = await db.bulkCreate(
           generateRandomProduct(2000)

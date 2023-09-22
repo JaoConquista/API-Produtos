@@ -1,4 +1,5 @@
 import { DataTypes, Sequelize } from "sequelize";
+import { IProduct } from "../dtos/ProductDTO";
 
 export class Postgres {
     private _driver: Sequelize | null;
@@ -78,7 +79,17 @@ export class Postgres {
         }
     }
 
-    async create(item: any){
+    async readOne(id: number){
+        try {
+            const response = await this._produtos?.findOne({where: {id_produto: id}})
+            return response;
+        } catch (error) {
+            console.error("Erro ao ler item: ", error)
+            throw error;
+        }
+    }
+
+    async create(item: IProduct){
         try {
             const create = await this._produtos?.create(item)
             return create?.toJSON()
@@ -88,9 +99,9 @@ export class Postgres {
         }
     }
     
-    async bulkCreate(items: any) {
+    async bulkCreate(items: IProduct[]) {
         const values = await this._produtos?.bulkCreate(items, { returning: true });
     
         return values;
-      }
+    }
 }
