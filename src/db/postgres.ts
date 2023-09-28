@@ -1,5 +1,6 @@
 import { DataTypes, Sequelize } from "sequelize";
 import { IProduct } from "../dtos/ProductDTO";
+import { Op } from "sequelize";
 
 export class Postgres {
     private _driver: Sequelize | null;
@@ -68,7 +69,7 @@ export class Postgres {
         });
     }
 
-    async read(limit?: number) {
+    async readAll(limit?: number) {
         try {
             let results
             limit ?   results = await this._produtos?.findAll({ limit: limit }) :  results = await this._produtos?.findAll();
@@ -79,9 +80,21 @@ export class Postgres {
         }
     }
 
-    async readOne(id: number){
+    async readById(id: number){
         try {
+
             const response = await this._produtos?.findOne({where: {id_produto: id}})
+            return response;
+
+        }catch (error) {
+            console.error("Erro ao ler item: ", error)
+            throw error;
+        }
+    }
+
+    async readByName(name: string){
+        try {
+            const response = await this._produtos?.findOne({where: {nome_produto: name}})
             return response;
         } catch (error) {
             console.error("Erro ao ler item: ", error)

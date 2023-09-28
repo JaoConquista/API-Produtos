@@ -4,7 +4,7 @@ import { Postgres } from "../db/postgres";
 export async function getProducts(app: FastifyInstance, db: Postgres ) {
     app.get("/produtos", async () => {
         try {
-            const produtos = await db.read(100)
+            const produtos = await db.readAll(100)
             console.log('Get is alive')
             return {
                 succes: true,
